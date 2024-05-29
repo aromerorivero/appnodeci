@@ -10,6 +10,7 @@ jobs:
  strategy:
  matrix:
  node-version: [16.x]
+ # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
  steps:
  - uses: actions/checkout@v2
  - name: Use Node.js ${{ matrix.node-version }}
@@ -18,3 +19,13 @@ jobs:
  node-version: ${{ matrix.node-version }}
  cache: "npm"
  - run: npm ci
+ deploy:
+
+ runs-on: ubuntu-latest
+ steps:
+ - uses: actions/checkout@v2
+ - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+ with:
+ heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+ heroku_app_name: apinodedeploy
+ heroku_email: agusrr1305@gmail.com
